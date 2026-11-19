@@ -1,33 +1,22 @@
 # GPX Randomizer
 
-## Web-MVP (GitHub Pages)
+Aus einer GPX-Sammlung wird ein Wegenetz, aus dem sich neue Runden und A→B-Touren
+zusammensetzen lassen. Läuft komplett im Browser (kein Backend).
 
-Das statische Browser-MVP liegt in [`docs/`](docs/) und läuft komplett im Browser (kein Backend).
-Details, Aufbau und Lizenzhinweise: [`docs/README.md`](docs/README.md).
+**Live:** https://markuscouch.github.io/GPX_Randomizer/
 
-**Veröffentlichen:** Repo → *Settings → Pages → Build and deployment* →
-Source: *Deploy from a branch*, Branch: `main`, Ordner: `/docs` → *Save*.
-Danach erreichbar unter `https://markuscouch.github.io/GPX_Randomizer/`.
+Die App liegt in [`docs/`](docs/). Details, Aufbau und Lizenzhinweise:
+[`docs/README.md`](docs/README.md).
 
-**Lokal testen:**
+## Veröffentlichen
+
+Repo → *Settings → Pages → Build and deployment* → Source: *Deploy from a branch*,
+Branch: `main`, Ordner: `/docs` → *Save*.
+
+## Lokal testen
 
 ```bash
 cd docs && python3 -m http.server 8000
 ```
 
-## Streamlit-Prototyp (lokal)
-
-Lokale Streamlit-App, die GPX-Dateien lädt, einen routingfähigen Graphen baut und Zufallsrouten (Rundtour / A→B) erzeugt.
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-streamlit run app.py
-```
-
-Tests:
-
-```bash
-pytest -q
-```
+Dann http://localhost:8000 öffnen.

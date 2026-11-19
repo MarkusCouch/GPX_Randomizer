@@ -40,7 +40,7 @@ export class NetworkMap {
     this.tiles=new Map();
     try{if(window.maplibregl){
       const bg=document.createElement('div');bg.className='basemap-host';container.prepend(bg);
-      this.base=new window.maplibregl.Map({container:bg,style:'https://tiles.openfreemap.org/styles/liberty',center:[13.605,52.44],zoom:this.zoom-1,interactive:false,attributionControl:true});
+      this.base=new window.maplibregl.Map({container:bg,style:'https://tiles.openfreemap.org/styles/liberty',center:[13.605,52.44],zoom:this.zoom-1,interactive:false,attributionControl:{compact:true}});
       this.base.on('load',()=>{document.getElementById('map-service-status').textContent='';this.schedule();});
       this.base.on('error',()=>{document.getElementById('map-service-status').textContent='Kartenhintergrund nicht erreichbar · Netz bleibt nutzbar';});
     }}catch(e){this.base=null;document.getElementById('map-service-status').textContent='Rasterkarte wird geladen …';}
@@ -54,7 +54,7 @@ export class NetworkMap {
     if(!points?.length)return;
     const projected=points.map(world),xs=projected.map(p=>p[0]),ys=projected.map(p=>p[1]);
     const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
-    const bottom=route?205:185,top=120,pad=65;
+    const mobile=window.matchMedia('(max-width:700px)').matches,bottom=mobile?62:route?205:185,top=mobile?62:120,pad=mobile?28:65;
     const w=Math.max(100,this.width-pad*2),h=Math.max(100,this.height-top-bottom);
     this.zoom=clamp(Math.log2(Math.min(w/((maxX-minX)*WORLD||1),h/((maxY-minY)*WORLD||1))),6,17);
     const s=WORLD*2**this.zoom;this.center=[(minX+maxX)/2,(minY+maxY)/2+(bottom-top)/2/s];this.schedule();

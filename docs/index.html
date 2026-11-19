@@ -28,7 +28,7 @@
   </header>
   <main class="workspace">
     <aside class="sidebar">
-      <div class="intro"><p class="eyebrow">BERLIN &amp; BRANDENBURG · 24 GPX-TOUREN</p><h1>Bekannte Wege.<br>Neue Runden<span class="lime-dot">.</span></h1><p class="intro-text">Aus deiner GPX-Sammlung wird ein Wegenetz voller Möglichkeiten.</p></div>
+      <div class="intro"><p class="eyebrow">BERLIN &amp; BRANDENBURG · 24 GPX-TOUREN</p><h1>Bekannte Wege.<br> Neue Runden<span class="lime-dot">.</span></h1><p class="intro-text">Aus deiner GPX-Sammlung wird ein Wegenetz voller Möglichkeiten.</p></div>
       <div class="tabs" role="tablist" aria-label="Arbeitsbereich">
         <button id="tab-plan" class="tab active" role="tab" aria-selected="true" aria-controls="panel-plan" data-tab="plan">Route planen</button>
         <button id="tab-data" class="tab" role="tab" aria-selected="false" aria-controls="panel-data" data-tab="data">Datensatz <span id="track-count">24</span></button>
@@ -100,8 +100,8 @@
       <div id="route-card" class="route-card" hidden>
         <div class="route-card-top"><p class="eyebrow" id="route-strategy">DEIN ROUTENVORSCHLAG</p><span id="route-match" class="match-badge"></span></div>
         <div class="route-metrics"><div class="main-metric"><strong id="route-length"></strong><span>km</span></div><div><strong id="route-ascent"></strong><span>Anstieg / Abstieg*</span></div><div><strong id="route-repeat" title="Gegenläufige Abschnitte in räumlicher Nähe, unabhängig von Sektion-IDs. Kurze Nähe unter 60 m Gesamtlänge wird toleriert."></strong><span>nahe Gegenläufe</span></div></div>
-        <div class="route-card-bottom"><div id="variant-buttons" class="variant-buttons" aria-label="Routenvorschlag auswählen"></div><button id="export-gpx" class="export-gpx"><svg><use href="#i-download"/></svg>GPX exportieren</button></div>
-        <svg id="elevation-profile" viewBox="0 0 400 52" role="img" aria-label="Höhenprofil der Route"></svg><p id="route-warning" class="route-warning" hidden></p><p id="route-footnote" class="route-footnote">* Aus GPX-Höhen geschätzt. Befahrbarkeit vor Ort prüfen.</p>
+        <div class="route-card-bottom"><div id="variant-buttons" class="variant-buttons" aria-label="Routenvorschlag auswählen"></div><button id="regenerate" class="regenerate" type="button" aria-label="Neue Runde finden"><svg><use href="#i-shuffle"/></svg><span>Neu</span></button><button id="export-gpx" class="export-gpx"><svg><use href="#i-download"/></svg><span>GPX<span class="export-word"> exportieren</span></span></button></div>
+        <svg id="elevation-profile" viewBox="0 0 400 52" preserveAspectRatio="none" role="img" aria-label="Höhenprofil der Route"></svg><p id="route-warning" class="route-warning" hidden></p><p id="route-footnote" class="route-footnote">* Aus GPX-Höhen geschätzt. Befahrbarkeit vor Ort prüfen.</p>
       </div>
       <div class="map-bottom"><div class="layer-controls" role="group" aria-label="Kartenebenen"><button id="layer-network" class="active" aria-pressed="true"><span class="line-key network-key"></span>Wegenetz</button><button id="layer-original" aria-pressed="false"><span class="line-key original-key"></span>GPX</button><button id="layer-nodes" aria-pressed="false"><span class="dot-key"></span>Knoten</button><button id="layer-uncertain" aria-pressed="false"><span class="line-key uncertain-key"></span>Unklar</button><button id="layer-basemap" class="active" aria-pressed="true">Karte</button></div><span id="map-scale" class="map-scale"></span></div>
       <div class="map-attribution"><span id="map-service-status">Kartenhintergrund lädt …</span><span id="osm-attribution" hidden> · Wegenetz: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap-Mitwirkende · ODbL</a></span></div>
