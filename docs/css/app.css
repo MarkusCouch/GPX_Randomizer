@@ -20,3 +20,33 @@
 .point-issue{padding:12px;margin:0 0 12px;border:1px solid #e4d3ae;border-radius:6px;background:#faf4e6}.point-issue strong{font-size:10px;font-weight:600}.point-issue p{font-size:9px;line-height:1.65;margin:7px 0;color:#7e6e50}.point-issue button{display:block;width:100%;text-align:left;border:1px solid #c9c09f;border-radius:5px;padding:9px;background:#fffdf5;font-size:10px;font-weight:550;line-height:1.5}.point-issue button:hover:not(:disabled){background:#f0e8d1}.point-issue small{display:block;margin-top:8px;color:#8b8069;font-size:8px;line-height:1.6}
 .network-mode-label{display:block;font-size:10px;margin-top:18px;margin-bottom:8px}.network-mode{width:100%;font-size:11px;border:1px solid var(--border);background:#fff;border-radius:6px;padding:11px}.matching-notice{font-size:10px;line-height:1.7;padding:12px;border:1px solid #e3d7c0;border-radius:6px;background:#faf5e9;color:#857151}.uncertain-key{background:#a36891}.layer-controls button{white-space:nowrap}
 @media(max-width:700px){.points-heading{font-size:9px}.points-heading .text-button{font-size:10px}.waypoint-location small{font-size:9px}.waypoint-actions button{width:32px;height:38px}.add-waypoint{font-size:12px;padding:12px}.add-waypoint small,.waypoint-hint{font-size:10px}.return-point{font-size:11px}}
+
+.regenerate{display:none}
+/* Mobile: Routenkarte unter der Karte statt darüber, damit die Route sichtbar bleibt */
+@media(max-width:700px){
+.map-area{--map-h:max(340px,56dvh);height:auto;min-height:0;overflow:visible;scroll-margin-top:0}
+.map{position:relative;inset:auto;height:var(--map-h);overflow:hidden}
+.map-bottom{top:calc(var(--map-h) - 52px);bottom:auto}
+.map-attribution{top:calc(var(--map-h) - 15px);bottom:auto;max-width:calc(100% - 14px)}
+.maplibregl-ctrl-bottom-right{bottom:56px}
+.busy{top:calc(var(--map-h) / 2)}
+.net-badge{max-width:calc(100% - 80px)}
+.route-card{position:relative;left:auto;bottom:auto;width:auto;margin:0;border-radius:0;border:0;border-top:1px solid #d9e1d3;border-bottom:1px solid #d9e1d3;box-shadow:none;backdrop-filter:none;background:#fbfcf9;padding:12px 16px 10px}
+.route-card-top{margin-bottom:6px}
+.route-metrics{gap:18px}
+.route-metrics>div.main-metric strong{font-size:30px}
+.route-metrics>div>strong{font-size:15px}
+.route-metrics>div>span{font-size:9px}
+.route-card-bottom{margin-top:10px;padding-top:9px}
+.variant-buttons{gap:6px}
+.variant-buttons button{min-width:44px;min-height:38px;font-size:12px;padding:6px 10px}
+.export-gpx{font-size:12px;min-height:38px}
+#elevation-profile{height:34px}
+.route-warning{font-size:10px;margin-top:6px;line-height:1.5}
+.route-footnote{font-size:8px;margin-top:5px}
+.map-area:has(#route-card:not([hidden])) .net-badge{display:none}
+.regenerate{display:flex;align-items:center;gap:6px;margin-left:auto;margin-right:4px;border:1px solid var(--border);border-radius:4px;padding:6px 12px;min-height:38px;font-size:12px;font-weight:550;background:#fff}
+.regenerate svg{width:15px;height:15px}
+.regenerate:disabled{opacity:.5}
+.export-word{display:none}
+}

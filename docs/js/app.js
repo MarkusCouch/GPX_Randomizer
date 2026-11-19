@@ -24,7 +24,7 @@ function compute(type,payload){return new Promise((resolve,reject)=>{const id=++
 function toast(message,error=false){clearTimeout(toastTimer);$('toast').textContent=message;$('toast').classList.toggle('error',error);$('toast').hidden=false;toastTimer=setTimeout(()=>$('toast').hidden=true,error?9000:5000);}
 function setBusy(value,title='Deine Wege werden verbunden'){
   busy=value;$('busy').classList.remove('error');$('busy').hidden=!value;$('busy-title').textContent=title;$('busy-progress').style.width='4%';
-  for(const id of ['generate','rebuild','import','restore-demo','export-network'])$(id).disabled=value||(['generate','export-network'].includes(id)&&!network);
+  for(const id of ['generate','regenerate','rebuild','import','restore-demo','export-network'])$(id).disabled=value||(['generate','regenerate','export-network'].includes(id)&&!network);
   for(const id of ['distance','distance-slider','length-tolerance','hills','turns','seed','clear-waypoints','network-mode','allow-pushing','respect-access','allow-unmatched','repair-deadends','max-end-gap','use-osm-connections'])$(id).disabled=value;
   for(const id of ['pick-start','pick-end','add-waypoint'])$(id).disabled=value||!network||(id==='add-waypoint'&&waypoints.length>=8);
   $('use-start-suggestion').disabled=value;
@@ -202,6 +202,7 @@ $('network-mode').addEventListener('change',()=>{
 for(const id of ['snap-tolerance','height-check','height-threshold','allow-pushing','respect-access','allow-unmatched','repair-deadends','max-end-gap','use-osm-connections'])$(id).addEventListener('input',()=>{
   $('snap-output').textContent=$('snap-tolerance').value;$('network-dirty').hidden=false;
 });
+const isMobile=()=>window.matchMedia('(max-width:700px)').matches;
 async function generate(fit=false){
   if(busy||!network)return;
   const distance=Number($('distance').value);if(!Number.isFinite(distance)||distance<5||distance>150){toast('Bitte eine Wunschlänge zwischen 5 und 150 km eingeben.',true);return;}
@@ -211,13 +212,14 @@ async function generate(fit=false){
   setBusy(true,'Deine nächste Tour entsteht');$('busy-stage').textContent='Neue Kombinationen auf dem Wegenetz suchen …';
   try{
     const response=await compute('generate',{options:{mode,start,end,waypoints,distanceKm:distance,lengthTolerance:Number($('length-tolerance').value),hills:Number($('hills').value),turns:Number($('turns').value),seed}});
-    result=response.result;selectedVariant=0;renderResult();setBusy(false);if(fit)map.fit(result.routes[0].geometry,true);
+    result=response.result;selectedVariant=0;renderResult();setBusy(false);if(fit||isMobile()){map.fit(result.routes[0].geometry,true);}if(isMobile())window.scrollTo({top:0,behavior:'smooth'});
   }catch(e){setBusy(false);if(e.details?.connectionIssue){
     connectionIssue=e.details.connectionIssue;$('connection-issue-message').textContent=connectionIssue.message;$('connection-issue').hidden=false;
     map.connectionGeometry=connectionIssue.sections.map(s=>s.geometry);map.schedule();$('connection-issue').scrollIntoView({behavior:'smooth',block:'nearest'});
   }toast(e.message,true);}
 }
 $('generate').addEventListener('click',()=>generate(false));
+$('regenerate').addEventListener('click',()=>generate(false));
 function renderResult(){
   connectionIssue=null;$('connection-issue').hidden=true;map.connectionGeometry=[];
   if(!result)return;const r=result.routes[selectedVariant];map.setRoute(r);$('route-card').hidden=false;$('route-length').textContent=km(r.length);$('route-ascent').textContent=r.ascent===null?'—':number(r.ascent)+' ↑ / '+number(r.descent)+' ↓';$('route-repeat').textContent=number((r.quality?.nearRetraced??r.repeated)/r.length*100,1)+' %';
@@ -233,7 +235,7 @@ function renderResult(){
   }
   const match=$('route-match');match.classList.toggle('outside',!r.withinTolerance);match.textContent=r.withinTolerance?'Innerhalb Wunschlänge':'Wunschlänge verfehlt';
   $('variant-buttons').replaceChildren();
-  result.routes.forEach((route,i)=>{const b=document.createElement('button');b.textContent=String(i+1).padStart(2,'0');b.classList.toggle('selected',i===selectedVariant);b.title=`Variante ${i+1}: ${km(route.length)} km`;b.setAttribute('aria-label',b.title);b.setAttribute('aria-pressed',String(i===selectedVariant));b.addEventListener('click',()=>{selectedVariant=i;renderResult();});$('variant-buttons').append(b);});
+  result.routes.forEach((route,i)=>{const b=document.createElement('button');b.textContent=String(i+1).padStart(2,'0');b.classList.toggle('selected',i===selectedVariant);b.title=`Variante ${i+1}: ${km(route.length)} km`;b.setAttribute('aria-label',b.title);b.setAttribute('aria-pressed',String(i===selectedVariant));b.addEventListener('click',()=>{selectedVariant=i;renderResult();if(isMobile())map.fit(result.routes[i].geometry,true);});$('variant-buttons').append(b);});
   const warnings=[];if(r.connectionLength)warnings.push(`${number(r.connectionLength)} m gezielte OSM-Ergänzung über den Schmöckwitzwerdersteg.`);if(r.uncertainLength>30)warnings.push(`${km(r.uncertainLength)} km ungeprüfte Original-GPX-Wege · violett markiert.`);
   if(!r.withinTolerance)warnings.push(`Ziel: ${km(result.target)} km ± ${number(result.lengthTolerance*100)} %. Beste gefundene Variante: ${km(r.length)} km.`);
   if(result.shortest>result.target*(1+result.lengthTolerance))warnings.push(r.manualWaypoints?.length?`Schon die kürzesten Teilwege über deine Punkte ergeben ${km(result.shortest)} km.`:`Schon die kürzeste Verbindung ist ${km(result.shortest)} km lang.`);
