@@ -1,8 +1,23 @@
 # GPX Randomizer
 
-Local Streamlit app to load GPX files, build a routable graph, and generate random routes with loop/A→B modes.
+## Web-MVP (GitHub Pages)
 
-## Run
+Das statische Browser-MVP liegt in [`docs/`](docs/) und läuft komplett im Browser (kein Backend).
+Details, Aufbau und Lizenzhinweise: [`docs/README.md`](docs/README.md).
+
+**Veröffentlichen:** Repo → *Settings → Pages → Build and deployment* →
+Source: *Deploy from a branch*, Branch: `main`, Ordner: `/docs` → *Save*.
+Danach erreichbar unter `https://markuscouch.github.io/GPX_Randomizer/`.
+
+**Lokal testen:**
+
+```bash
+cd docs && python3 -m http.server 8000
+```
+
+## Streamlit-Prototyp (lokal)
+
+Lokale Streamlit-App, die GPX-Dateien lädt, einen routingfähigen Graphen baut und Zufallsrouten (Rundtour / A→B) erzeugt.
 
 ```bash
 python -m venv .venv
@@ -11,7 +26,7 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## Tests
+Tests:
 
 ```bash
 pytest -q

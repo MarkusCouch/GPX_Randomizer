@@ -1,0 +1,18 @@
+OpenStreetMap data in GPX Randomizer MVP 07
+
+© OpenStreetMap contributors / OpenStreetMap-Mitwirkende
+https://www.openstreetmap.org/copyright
+
+The OSM way geometry, node identifiers and tags in osm-reference.json, and
+OSM-derived network geometry and exports, are made available under the
+Open Database License (ODbL) 1.0:
+https://opendatacommons.org/licenses/odbl/1-0/
+
+The complete prepared OSM reference database is included as osm-reference.json.
+Its preparation date and source are recorded in that file.
+Original user-provided GPX tracks are a separate input and are not asserted
+to be licensed under ODbL merely by their inclusion in this application.
+
+MVP 07.3: gezielte OSM-Ergänzung Schmöckwitzwerdersteg, 43 Segmente auf 19 Wegen.
+Quelle: https://api.openstreetmap.org/api/0.6/map?bbox=13.690,52.370,13.701,52.377
+574,05 m geprüfter Verlauf inkl. Zufahrten; 535,11 m neue Netzabschnitte.

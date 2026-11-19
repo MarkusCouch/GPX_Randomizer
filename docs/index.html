@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f4">
+  <meta name="description" content="Deine GPX-Sammlung wird zum Wegenetz. Neue Runden aus bekannten Strecken, direkt im Browser.">
+  <title>GPX Randomizer · Berlin &amp; Brandenburg</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTYiIGZpbGw9IiNkNmVkOGMiLz48ZyBmaWxsPSJub25lIiBzdHJva2U9IiMyMzM3MzAiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJtMTMgNDggMTMtMzIgMTMgMzEgMTItMzFNMTMgNDhsMzgtMzIiLz48ZyBmaWxsPSIjZDZlZDhjIj48Y2lyY2xlIGN4PSIxMyIgY3k9IjQ4IiByPSI0Ii8+PGNpcmNsZSBjeD0iMjYiIGN5PSIxNiIgcj0iNCIvPjxjaXJjbGUgY3g9IjM5IiBjeT0iNDciIHI9IjQiLz48Y2lyY2xlIGN4PSI1MSIgY3k9IjE2IiByPSI0Ii8+PC9nPjwvZz48L3N2Zz4K" type="image/svg+xml">
+  <link rel="stylesheet" href="css/maplibre-gl.css">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="vendor/maplibre-gl.js"></script>
+</head>
+<body>
+  <svg class="icon-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-shuffle" viewBox="0 0 24 24"><path d="m16 3 4 4-4 4m4-4h-4c-6 0-6 10-12 10H2m14 4 4-4-4-4m4 4h-4c-2 0-3-1-4-3M2 7h2c2 0 3 1 4 3"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v13m-5-5 5 5 5-5M4 17v4h16v-4"/></symbol>
+    <symbol id="i-fit" viewBox="0 0 24 24"><path d="M4 9V4h5m6 0h5v5m0 6v5h-5M9 20H4v-5"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 0 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-network" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6M6 6v12m12-12v12"/><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+  </defs></svg>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="GPX Randomizer Startseite"><svg class="brand-icon" viewBox="0 0 36 36" aria-hidden="true"><path d="M7 27 15 9l7 17 7-17M7 27l22-18"/><circle cx="15" cy="9" r="3"/><circle cx="22" cy="26" r="3"/><circle cx="7" cy="27" r="3"/><circle cx="29" cy="9" r="3"/></svg><span>gpx<span class="brand-light">randomizer</span><sup>LAB</sup></span></a>
+    <div class="header-meta"><span class="local-dot"></span><span>Routing auf deinem Gerät</span><span class="version-tag">MVP 07.3 · OSM</span></div>
+  </header>
+  <main class="workspace">
+    <aside class="sidebar">
+      <div class="intro"><p class="eyebrow">BERLIN &amp; BRANDENBURG · 24 GPX-TOUREN</p><h1>Bekannte Wege.<br>Neue Runden<span class="lime-dot">.</span></h1><p class="intro-text">Aus deiner GPX-Sammlung wird ein Wegenetz voller Möglichkeiten.</p></div>
+      <div class="tabs" role="tablist" aria-label="Arbeitsbereich">
+        <button id="tab-plan" class="tab active" role="tab" aria-selected="true" aria-controls="panel-plan" data-tab="plan">Route planen</button>
+        <button id="tab-data" class="tab" role="tab" aria-selected="false" aria-controls="panel-data" data-tab="data">Datensatz <span id="track-count">24</span></button>
+        <button id="tab-network" class="tab" role="tab" aria-selected="false" aria-controls="panel-network" data-tab="network">Wegenetz</button>
+      </div>
+      <div class="sidebar-scroll">
+        <section id="panel-plan" role="tabpanel" aria-labelledby="tab-plan">
+          <div class="field-label"><span>DEINE NÄCHSTE TOUR</span><span class="small muted">01 / Planen</span></div>
+          <div class="segmented" aria-label="Routentyp"><button class="selected" data-mode="loop" aria-pressed="true">↻ Rundtour</button><button data-mode="ab" aria-pressed="false">A → B</button></div>
+          <div class="distance-field"><label for="distance">Wunschlänge</label><div class="distance-input"><input id="distance" type="number" min="5" max="150" step="1" value="40" aria-label="Wunschlänge in Kilometern"><span>km</span></div><select id="length-tolerance" aria-label="Erlaubte Abweichung der Routenlänge"><option value="0.05">± 5 %</option><option value="0.1" selected>± 10 %</option><option value="0.2">± 20 %</option></select></div>
+          <input id="distance-slider" class="range lime" type="range" min="5" max="150" value="40" step="1" aria-label="Wunschlänge ändern"><div class="range-labels"><span>5 km</span><span>150 km</span></div>
+          <section class="points" aria-label="Routenpunkte">
+            <div class="points-heading"><span>DEINE ROUTENPUNKTE</span><button id="clear-waypoints" class="text-button" hidden>Alle entfernen</button></div>
+            <button id="pick-start" class="point-button"><span class="point-letter start-letter">S</span><span><b>Startpunkt</b><small id="start-label">Wird auf das Wegenetz gesetzt</small></span><svg><use href="#i-pin"/></svg></button>
+            <div id="start-issue" class="point-issue" role="status" hidden><strong>Startanschluss im GPX-Netz prüfen</strong><p id="start-issue-message"></p><button id="use-start-suggestion" hidden></button><small>Der Vorschlag versetzt nur den Start. Deine Zwischenpunkte bleiben erhalten.</small></div>
+            <ol id="waypoint-list" class="waypoint-list" aria-label="Zwischenpunkte in Fahrreihenfolge"></ol>
+            <div id="connection-issue" class="point-issue" role="status" hidden><strong>Eine zweite Anbindung fehlt im GPX-Netz</strong><p id="connection-issue-message"></p><button id="show-connection">Verbindungsstück auf der Karte anzeigen</button><small>Die ocker markierte Strecke ist vorhanden. Eine zweite, unabhängige Verbindung zu diesem Bereich fehlt in den importierten Wegen. Das beschreibt den Datensatz, keine Sackgasse vor Ort.</small></div>
+            <button id="add-waypoint" class="add-waypoint"><span>+</span>Zwischenpunkt setzen<small id="waypoint-count">0 / 8</small></button>
+            <button id="pick-end" class="point-button" hidden><span class="point-letter end-letter">Z</span><span><b>Zielpunkt</b><small id="end-label">Auf der Karte auswählen</small></span><svg><use href="#i-pin"/></svg></button>
+            <div id="roundtrip-end" class="return-point"><span class="point-letter">↻</span><span>Zurück zum Start</span></div>
+            <p id="waypoint-hint" class="waypoint-hint" aria-live="polite">Optional: Punkte auf der Karte setzen. Ohne Punkte wird die Route automatisch geplant.</p>
+          </section>
+          <details class="preferences"><summary>Routencharakter <span>+</span></summary><div class="preference-field"><label for="hills">Höhenprofil <output id="hills-label">Ausgewogen</output></label><input id="hills" class="range" type="range" min="-1" max="1" step="1" value="0"><div class="range-labels"><span>Flacher</span><span>Hügeliger</span></div></div><div class="preference-field"><label for="turns">Abbiegen <output id="turns-label">Ausgewogen</output></label><input id="turns" class="range" type="range" min="-1" max="1" step="1" value="0"><div class="range-labels"><span>Weniger</span><span>Mehr</span></div></div></details>
+          <button id="generate" class="primary" disabled><svg><use href="#i-shuffle"/></svg><span>Neue Runde finden</span><svg><use href="#i-arrow"/></svg></button>
+          <p class="button-caption" id="route-caption">Verteilte Zwischenziele · bis zu 3 geprüfte Varianten</p>
+          <details class="seed-options"><summary>Zufall reproduzieren</summary><label for="seed">Seed <input id="seed" type="text" placeholder="Leer = jedes Mal neu" maxlength="80"></label><p>Gleiche Dateien, Einstellungen und gleicher Seed ergeben dieselben Vorschläge.</p></details>
+          <div class="sidebar-note"><span class="note-symbol">↗</span><p>Alle Punkte werden auf dein GPX-Netz gesetzt. Zwischenpunkte werden in Listenreihenfolge angefahren.</p></div>
+        </section>
+        <section id="panel-data" role="tabpanel" aria-labelledby="tab-data" hidden>
+          <div class="field-label"><span>DEINE GPX-SAMMLUNG</span><span class="small muted">02 / Importieren</span></div>
+          <p class="panel-intro">24 Beispieltouren aus Berlin und Brandenburg sind geladen. Ergänze eigene Tracks oder teste eine kleinere Auswahl.</p>
+          <button id="import" class="secondary full"><svg><use href="#i-upload"/></svg>GPX-Dateien hinzufügen</button><input id="files" type="file" multiple accept=".gpx,application/gpx+xml,application/xml,text/xml" hidden>
+          <div class="dataset-total"><span id="data-summary">Dateien werden geladen …</span><button id="restore-demo" class="text-button">Routenpaket laden</button></div>
+          <div id="track-list" class="track-list"></div>
+          <p class="help-text">Häkchen bestimmen, welche Tracks das Wegenetz bilden. Jeder GPX-Abschnitt bleibt beim Import getrennt; Lücken werden nicht durch Geraden überbrückt.</p>
+        </section>
+        <section id="panel-network" role="tabpanel" aria-labelledby="tab-network" hidden>
+          <div class="field-label"><span>VOM TRACK ZUM WEGENETZ</span><span class="small muted">03 / Verbinden</span></div>
+          <p class="panel-intro">GPX-Spuren zuordnen und gemeinsame Wegabschnitte zusammenfassen.</p>
+          <label class="network-mode-label" for="network-mode">Grundlage des Wegenetzes</label><select id="network-mode" class="network-mode"><option value="osm" selected>OSM-Abgleich · empfohlen</option><option value="gpx">GPX-Näherung · ungeprüft</option></select>
+          <div class="tolerance-field"><label id="snap-label" for="snap-tolerance">Suchradius für neue GPX-Zuordnungen</label><strong><output id="snap-output">30</output><span> m</span></strong><input id="snap-tolerance" class="range lime" type="range" min="5" max="60" step="1" value="30"><div class="range-labels"><span>5 m · genau</span><span>60 m · großzügig</span></div></div>
+          <p id="snap-help" class="help-text">Die Sammlung ist vorbereitet. Neue Tracks werden als Punktfolge OSM-Wegen zugeordnet. Für fehlende Kartendaten werden Streckenkoordinaten an OSM Overpass übermittelt.</p>
+          <label id="osm-connections-field" class="check-field"><input type="checkbox" id="use-osm-connections" checked><span><b>Schmöckwitzwerdersteg ergänzen</b><small>Gezielt geprüfte OSM-Verbindung mit Radweganschluss, Zufahrt und Rampen: ca. 574 m. Aktiv, wenn beide Enden an deine ausgewählten GPX-Wege anschließen. Marker auf ungeprüften GPX-Spuren bis 15 m neben dieser Verbindung werden dem bestätigten Weg zugeordnet. Die Kurzlücken-Grenze gilt separat.</small></span></label>
+          <button id="show-confirmed-connection" class="text-button" hidden>Ergänzte Verbindung auf der Karte zeigen</button>
+          <button id="load-canal-example" class="secondary full">70-km-Beispiel über deine drei Punkte laden</button>
+          <p class="help-text">Übernimmt die drei Punkte, den Seed und die geprüften Standardeinstellungen.</p>
+          <label id="osm-endpoint-field" class="check-field"><input type="checkbox" id="repair-deadends" checked><span><b>Kurze Lücken über OSM schließen</b><small>Bis <input id="max-end-gap" type="number" value="10" min="1" max="30" step="1" aria-label="Maximale Länge einer OSM-Lückenverbindung in Metern"> m · nur zwischen zwei Sackgassen-Enden. Ein eindeutiger OSM-Verlauf muss die gesamte Lücke bestätigen. Keine Verbindung zu Wegmitten.</small></span></label>
+          <label id="osm-fallback-field" class="check-field"><input type="checkbox" id="allow-unmatched" checked><span><b>Ungeprüfte GPX-Wege zulassen</b><small>Originalabschnitte ohne sichere OSM-Zuordnung. Violett im Netz und mit Länge im Ergebnis; bei strenger Zugangsprüfung ausgeschlossen.</small></span></label>
+          <label id="osm-access-field" class="check-field"><input type="checkbox" id="respect-access"><span><b>OSM-Zugangsbeschränkungen ausschließen</b><small>Kann aufgezeichnete Wege und Runden unterbrechen. Ohne diese Prüfung erfolgt nur der Geometrie-Abgleich.</small></span></label>
+          <label id="osm-pushing-field" class="check-field"><input type="checkbox" id="allow-pushing" checked><span><b>Schiebepassagen zulassen</b><small>Fußwege ohne Radfreigabe und Treppen. Die Route nennt deren Länge.</small></span></label>
+          <label id="legacy-height" class="check-field" hidden><input type="checkbox" id="height-check" checked><span><b>Höhenunterschiede prüfen</b><small>Bei mehr als <input id="height-threshold" type="number" value="8" min="2" max="40" aria-label="Maximaler Höhenunterschied in Metern"> m nicht verbinden.</small></span></label>
+          <button id="rebuild" class="secondary full" disabled><svg><use href="#i-network"/></svg>Wegenetz neu aufbauen</button><p id="network-dirty" class="help-text" hidden>Einstellungen geändert. Bitte das Wegenetz neu aufbauen.</p>
+          <div id="network-statistics" class="network-statistics"></div>
+          <p id="matching-notice" class="matching-notice" hidden></p>
+          <details class="assumptions"><summary>Wie werden Wege zusammengeführt?</summary><ul><li>Jeder OSM-Wegabschnitt erhält eine gemeinsame Geometrie. Mehrere GPX-Spuren desselben Abschnitts werden einmalig verwendet.</li><li>Kreuzungen folgen gemeinsamen OSM-Knoten. Bloße Linienkreuzungen und nahe Parallelwege werden nicht verschmolzen.</li><li>Die neue Lückenprüfung ergänzt nur eindeutige, noch fehlende OSM-Verbindungen zwischen zwei bestehenden Sackgassen-Enden. Standard: 10 m, einstellbar bis 30 m. Es zählt die gesamte OSM-Weglänge. Mehrdeutige Anschlüsse, Höhenkonflikte und Anschlüsse an Wegmitten bleiben offen.</li><li>Echte geschlossene Wege und Ringe bleiben erhalten. Kurze Lücken dürfen über vorhandene OSM-Anschlüsse bis 100 m im GPS-Korridor geschlossen werden. Getrennte GPX-Segmente bleiben getrennt.</li><li>Einbahnrichtungen werden übernommen. Zugangsbeschränkungen können separat ausgeschlossen werden; sonst weist die Route solche Abschnitte aus. Fußwege und Treppen sind mögliche Schiebepassagen. Aktuelle Sperren und Abbiegeverbote werden nicht geprüft.</li><li>Die vorbereitete Sammlung nutzt 40 m Suchradius, neue Tracks den eingestellten Radius. Unklare GPS-Abschnitte sind über „Unklar“ sichtbar; Auf Wunsch ergänzen ausschließlich die tatsächlich aufgezeichneten Originalabschnitte den Routenpool; keine erfundenen Geraden.</li><li>Die alternative GPX-Näherung arbeitet rein geometrisch und kann die bisherigen Verflechtungen enthalten.</li></ul></details>
+          <button id="export-network" class="text-button export-network" disabled><svg><use href="#i-download"/></svg>Wegenetz als GeoJSON</button>
+        </section>
+      </div>
+      <div class="sidebar-footer"><span><i></i><span id="footer-status">Testdatensatz wird geladen</span></span><a href="beispielrunde-schmoeckwitzwerder.gpx" download>Beispiel-GPX ↓</a></div>
+    </aside>
+    <section class="map-area" aria-label="Interaktive Karte mit GPX-Wegenetz">
+      <div id="map" class="map"></div>
+      <div class="map-heading"><span class="map-region">BERLIN · BRANDENBURG</span><span class="map-heading-divider"></span><span id="map-subtitle">24 GPX-Tracks → ein neues Wegenetz</span></div>
+      <div class="map-tools"><button id="fit" title="Gesamtes Wegenetz anzeigen" aria-label="Gesamtes Wegenetz anzeigen"><svg><use href="#i-fit"/></svg></button><div class="zoom-buttons"><button id="zoom-in" title="Vergrößern" aria-label="Vergrößern">+</button><button id="zoom-out" title="Verkleinern" aria-label="Verkleinern">−</button></div></div>
+      <div id="net-badge" class="net-badge" hidden><div class="net-badge-icon"><svg><use href="#i-network"/></svg></div><div><strong id="net-badge-title"></strong><span id="net-badge-subtitle"></span></div></div>
+      <div id="pick-banner" class="pick-banner" hidden><svg><use href="#i-pin"/></svg><span>Startpunkt auf der Karte wählen</span><button id="cancel-pick" aria-label="Punktauswahl abbrechen"><svg><use href="#i-close"/></svg></button></div>
+      <div id="node-detail" class="node-detail" hidden><button id="close-node" aria-label="Knotendetails schließen"><svg><use href="#i-close"/></svg></button><p class="eyebrow">KNOTEN IM WEGENETZ</p><strong id="node-title"></strong><p id="node-description"></p><small id="node-location"></small></div>
+      <div id="busy" class="busy" role="status" aria-live="polite"><div class="busy-graphic"><svg><use href="#i-network"/></svg></div><strong id="busy-title">Deine Wege werden verbunden</strong><p id="busy-stage">GPX-Dateien laden …</p><div class="progress-track"><div id="busy-progress"></div></div></div>
+      <div id="route-card" class="route-card" hidden>
+        <div class="route-card-top"><p class="eyebrow" id="route-strategy">DEIN ROUTENVORSCHLAG</p><span id="route-match" class="match-badge"></span></div>
+        <div class="route-metrics"><div class="main-metric"><strong id="route-length"></strong><span>km</span></div><div><strong id="route-ascent"></strong><span>Anstieg / Abstieg*</span></div><div><strong id="route-repeat" title="Gegenläufige Abschnitte in räumlicher Nähe, unabhängig von Sektion-IDs. Kurze Nähe unter 60 m Gesamtlänge wird toleriert."></strong><span>nahe Gegenläufe</span></div></div>
+        <div class="route-card-bottom"><div id="variant-buttons" class="variant-buttons" aria-label="Routenvorschlag auswählen"></div><button id="export-gpx" class="export-gpx"><svg><use href="#i-download"/></svg>GPX exportieren</button></div>
+        <svg id="elevation-profile" viewBox="0 0 400 52" role="img" aria-label="Höhenprofil der Route"></svg><p id="route-warning" class="route-warning" hidden></p><p id="route-footnote" class="route-footnote">* Aus GPX-Höhen geschätzt. Befahrbarkeit vor Ort prüfen.</p>
+      </div>
+      <div class="map-bottom"><div class="layer-controls" role="group" aria-label="Kartenebenen"><button id="layer-network" class="active" aria-pressed="true"><span class="line-key network-key"></span>Wegenetz</button><button id="layer-original" aria-pressed="false"><span class="line-key original-key"></span>GPX</button><button id="layer-nodes" aria-pressed="false"><span class="dot-key"></span>Knoten</button><button id="layer-uncertain" aria-pressed="false"><span class="line-key uncertain-key"></span>Unklar</button><button id="layer-basemap" class="active" aria-pressed="true">Karte</button></div><span id="map-scale" class="map-scale"></span></div>
+      <div class="map-attribution"><span id="map-service-status">Kartenhintergrund lädt …</span><span id="osm-attribution" hidden> · Wegenetz: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap-Mitwirkende · ODbL</a></span></div>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
