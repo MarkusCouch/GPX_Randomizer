@@ -4,7 +4,7 @@ Aus deiner GPX-Sammlung wird ein Wegenetz, aus dem sich neue Runden und A→B-To
 zusammensetzen lassen. Routing und Netzaufbau laufen komplett im Browser (Web Worker),
 es gibt kein Backend.
 
-**Stand:** MVP 07.3 · Beispieldatensatz „CX in Berlin“ (24 Touren)
+**Stand:** MVP 07.3 · Beispieldatensatz mit 24 anonymisierten Touren (Berlin & Brandenburg)
 
 ## Auf GitHub Pages veröffentlichen
 

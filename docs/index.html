@@ -4,7 +4,7 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f8f4">
   <meta name="description" content="Deine GPX-Sammlung wird zum Wegenetz. Neue Runden aus bekannten Strecken, direkt im Browser.">
-  <title>CX in Berlin · GPX Randomizer</title>
+  <title>GPX Randomizer · Berlin &amp; Brandenburg</title>
   <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTYiIGZpbGw9IiNkNmVkOGMiLz48ZyBmaWxsPSJub25lIiBzdHJva2U9IiMyMzM3MzAiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJtMTMgNDggMTMtMzIgMTMgMzEgMTItMzFNMTMgNDhsMzgtMzIiLz48ZyBmaWxsPSIjZDZlZDhjIj48Y2lyY2xlIGN4PSIxMyIgY3k9IjQ4IiByPSI0Ii8+PGNpcmNsZSBjeD0iMjYiIGN5PSIxNiIgcj0iNCIvPjxjaXJjbGUgY3g9IjM5IiBjeT0iNDciIHI9IjQiLz48Y2lyY2xlIGN4PSI1MSIgY3k9IjE2IiByPSI0Ii8+PC9nPjwvZz48L3N2Zz4K" type="image/svg+xml">
   <link rel="stylesheet" href="css/maplibre-gl.css">
   <link rel="stylesheet" href="css/app.css">
@@ -28,7 +28,7 @@
   </header>
   <main class="workspace">
     <aside class="sidebar">
-      <div class="intro"><p class="eyebrow">CX IN BERLIN · 24 GPX-TOUREN</p><h1>Bekannte Wege.<br>Neue Runden<span class="lime-dot">.</span></h1><p class="intro-text">Aus deiner GPX-Sammlung wird ein Wegenetz voller Möglichkeiten.</p></div>
+      <div class="intro"><p class="eyebrow">BERLIN &amp; BRANDENBURG · 24 GPX-TOUREN</p><h1>Bekannte Wege.<br>Neue Runden<span class="lime-dot">.</span></h1><p class="intro-text">Aus deiner GPX-Sammlung wird ein Wegenetz voller Möglichkeiten.</p></div>
       <div class="tabs" role="tablist" aria-label="Arbeitsbereich">
         <button id="tab-plan" class="tab active" role="tab" aria-selected="true" aria-controls="panel-plan" data-tab="plan">Route planen</button>
         <button id="tab-data" class="tab" role="tab" aria-selected="false" aria-controls="panel-data" data-tab="data">Datensatz <span id="track-count">24</span></button>
@@ -59,7 +59,7 @@
         </section>
         <section id="panel-data" role="tabpanel" aria-labelledby="tab-data" hidden>
           <div class="field-label"><span>DEINE GPX-SAMMLUNG</span><span class="small muted">02 / Importieren</span></div>
-          <p class="panel-intro">24 Touren aus „CX in Berlin“ sind geladen. Ergänze eigene Tracks oder teste eine kleinere Auswahl.</p>
+          <p class="panel-intro">24 Beispieltouren aus Berlin und Brandenburg sind geladen. Ergänze eigene Tracks oder teste eine kleinere Auswahl.</p>
           <button id="import" class="secondary full"><svg><use href="#i-upload"/></svg>GPX-Dateien hinzufügen</button><input id="files" type="file" multiple accept=".gpx,application/gpx+xml,application/xml,text/xml" hidden>
           <div class="dataset-total"><span id="data-summary">Dateien werden geladen …</span><button id="restore-demo" class="text-button">Routenpaket laden</button></div>
           <div id="track-list" class="track-list"></div>
